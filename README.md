@@ -39,6 +39,11 @@ To install and run the Fillout API Server, follow these steps:
 
    ```shell
    npm start
+3. Run the app in dev mode
+
+   ```shell
+   npm run dev
+
 
 # Usage
 ## Fetching Form Responses
