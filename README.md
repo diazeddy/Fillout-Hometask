@@ -43,13 +43,27 @@ To install and run the Fillout API Server, follow these steps:
 
    ```shell
    npm run dev
+   ```
 
 
 # Usage
+
 ## Fetching Form Responses
-    To fetch form responses without filters, make a GET request to /:formId/filteredResponses.
-    ```shell
-    GET /:formId/filteredResponses
-    Query Parameters:
-    filters: custom params we'd like to search for.
-    This API supports the existing filloutAPI query params by default.
+
+To fetch form responses without filters, make a GET request to `/:formId/filteredResponses`.
+GET /:formId/filteredResponses
+
+Query Parameters:
+
+- `filters` (optional): Custom parameters used to search for specific responses.
+- `limit` (optional): The maximum number of responses to retrieve per request. Must be a number between 1 and 150. Default is 150.
+- `afterDate` (optional): A date string to filter responses submitted after this date.
+- `beforeDate` (optional): A date string to filter responses submitted before this date.
+- `offset` (optional): The starting position from which to fetch the responses. Default is 0.
+- `status` (optional): Pass `in_progress` to get a list of in-progress (unfinished) submissions. By default, only finished submissions are returned.
+- `includeEditLink` (optional): Pass `true` to include a link to edit the submission as `editLink`.
+- `sort` (optional): Can be `asc` or `desc`, defaults to `asc`.
+
+This API also supports the existing FilloutAPI query parameters by default.
+
+By utilizing these query parameters, you can effectively filter and retrieve the desired form responses.
