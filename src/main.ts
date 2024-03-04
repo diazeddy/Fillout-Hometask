@@ -28,6 +28,7 @@ app.get("/:formId/filteredResponses", async (req, res) => {
     // detach pagination
     const offsetParam = parseInt((req.query.offset as string) ?? 0);
     const limitParam = parseInt((req.query.limit as string) ?? MAX_PAGE_SIZE);
+    const sortParam = req.query.sort ?? "asc";
 
     delete queryParams.offset;
     delete queryParams.limit;
@@ -49,10 +50,14 @@ app.get("/:formId/filteredResponses", async (req, res) => {
 
     if (filteredResponses.length)
       res.status(200).send({
-        responses: filteredResponses.slice(
-          offsetParam,
-          offsetParam + limitParam
-        ),
+        responses: filteredResponses
+          .sort(
+            (left, right) =>
+              (sortParam == "asc" ? 1 : -1) *
+              (new Date(left.submissionTime).getTime() -
+                new Date(right.submissionTime).getTime())
+          )
+          .slice(offsetParam, offsetParam + limitParam),
         totalResponses,
         pageCount,
       });
